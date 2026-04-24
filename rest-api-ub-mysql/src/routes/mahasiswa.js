@@ -1,12 +1,9 @@
-// src/routes/mahasiswa.js
+
 const express = require("express");
 const router = express.Router();
 const db = require("../../db/database");
 
-// ─────────────────────────────────────────────
-// GET /api/mahasiswa
-// Menampilkan semua data mahasiswa
-// ─────────────────────────────────────────────
+
 router.get("/", (req, res) => {
   const sql = "SELECT * FROM mahasiswa ORDER BY id ASC";
 
@@ -28,10 +25,7 @@ router.get("/", (req, res) => {
   });
 });
 
-// ─────────────────────────────────────────────
-// GET /api/mahasiswa/:id
-// Menampilkan data mahasiswa berdasarkan ID
-// ─────────────────────────────────────────────
+
 router.get("/:id", (req, res) => {
   const sql = "SELECT * FROM mahasiswa WHERE id = ?";
 
@@ -59,14 +53,11 @@ router.get("/:id", (req, res) => {
   });
 });
 
-// ─────────────────────────────────────────────
-// POST /api/mahasiswa
-// Menambah data mahasiswa baru
-// ─────────────────────────────────────────────
+
 router.post("/", (req, res) => {
   const { nim, nama, jurusan, semester, ipk } = req.body;
 
-  // Validasi field wajib
+
   if (!nim || !nama || !jurusan || !semester) {
     return res.status(400).json({
       success: false,
@@ -81,7 +72,7 @@ router.post("/", (req, res) => {
 
   db.query(sql, [nim, nama, jurusan, semester, ipk || null], (err, result) => {
     if (err) {
-      // Duplikat NIM
+     
       if (err.code === "ER_DUP_ENTRY") {
         return res.status(409).json({
           success: false,
@@ -95,7 +86,7 @@ router.post("/", (req, res) => {
       });
     }
 
-    // Ambil data yang baru diinsert
+   
     db.query(
       "SELECT * FROM mahasiswa WHERE id = ?",
       [result.insertId],
