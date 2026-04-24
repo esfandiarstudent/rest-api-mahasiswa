@@ -1,10 +1,10 @@
-// db/database.js
+
 const mysql = require("mysql2");
 
 const db = mysql.createConnection({
   host: "localhost",
-  user: "root",       // default XAMPP
-  password: "",       // default XAMPP (kosong)
+  user: "root",      
+  password: "",       
   database: "db_mahasiswa",
 });
 
