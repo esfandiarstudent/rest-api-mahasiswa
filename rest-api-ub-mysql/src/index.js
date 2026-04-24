@@ -1,15 +1,14 @@
-// src/index.js
 const express = require("express");
 const mahasiswaRoutes = require("./routes/mahasiswa");
 
 const app = express();
 const PORT = 3000;
 
-// ─── Middleware ───────────────────────────────
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ─── Welcome Route ────────────────────────────
+
 app.get("/", (req, res) => {
   res.json({
     message: "🎓 REST API Mahasiswa - FILKOM UB",
@@ -21,10 +20,9 @@ app.get("/", (req, res) => {
   });
 });
 
-// ─── Routes ───────────────────────────────────
+
 app.use("/api/mahasiswa", mahasiswaRoutes);
 
-// ─── 404 Handler ─────────────────────────────
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -32,7 +30,7 @@ app.use((req, res) => {
   });
 });
 
-// ─── Start Server ─────────────────────────────
+
 app.listen(PORT, () => {
   console.log(`\n🚀 Server berjalan di http://localhost:${PORT}`);
   console.log(`   GET  http://localhost:${PORT}/api/mahasiswa`);
